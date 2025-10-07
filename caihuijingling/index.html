@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <title>彩绘精灵</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- 粒子背景 -->
+    <div id="particles-js"></div>
+
+    <div class="navbar">
+        <h1>🎨 彩绘精灵</h1>
+        <div class="auth-buttons">
+            <button id="loginBtn">登录</button>
+            <button id="registerBtn" class="register-btn">注册</button>
+        </div>
+        <button id="logoutBtn" class="logout-btn" style="display:none;">退出</button>
+        <span id="welcomeMsg" style="display:none;">欢迎回来！</span>
+    </div>
+
+    <div id="loginPrompt" class="login-prompt hidden">
+        <p>🔐 请先登录或注册账号以使用所有功能</p>
+    </div>
+
+    <!-- 三个功能区放进 main -->
+    <div class="main">
+        <!-- 左边：线稿上色 -->
+        <div class="container">
+            <h2>线稿上色</h2>
+            <input type="file" id="image-colorize" accept="image/*" style="display:none;">
+            <label for="image-colorize" class="custom-file-btn">选择文件</label><br>
+            <input type="text" id="prompt" placeholder="描述上色效果（如：温暖的色调、卡通风格等）"><br>
+            <button id="btn-colorize">开始上色</button>
+            <div id="loading-colorize" class="loading">✨ 正在上色，请稍候...</div>
+            <img id="result-colorize" src="" alt="生成结果">
+            <a id="download-colorize" class="download-btn" download="colored_image.png">下载彩色图</a>
+        </div>
+
+        <!-- 中间：彩色图转线稿 -->
+        <div class="container">
+            <h2>彩色图转线稿</h2>
+
+            <!-- 文件上传 -->
+            <input type="file" id="image-sketch" accept="image/*" style="display:none;">
+            <label for="image-sketch" class="custom-file-btn">选择文件</label><br>
+
+            <!-- 线稿提取方式选择 -->
+            <div class="method-select">
+                <label>
+                    <input type="radio" name="sketch-method" value="canny" checked>
+                    Canny 边缘提取（适合景物和漫画）
+                </label>
+                <label style="margin-left:20px;">
+                    <input type="radio" name="sketch-method" value="diffusion">
+                    扩散模型提取（适合人物）
+                </label>
+            </div><br>
+
+            <!-- 操作按钮 -->
+            <button id="btn-sketch">生成线稿</button>
+            <div id="loading-sketch" class="loading" style="display:none;">
+                🖊️ 正在生成线稿，请稍候...
+            </div>
+
+            <!-- 结果展示 -->
+            <img id="result-sketch" src="" alt="生成结果" style="display:none;">
+            <a id="download-sketch" class="download-btn" download="sketch.png" style="display:none;">下载线稿</a>
+        </div>
+
+
+        <!-- 右边：Kimi 描述角色 -->
+        <div class="container">
+            <h2>角色描述</h2>
+            <input type="file" id="image-kimi" accept="image/*" style="display:none;">
+            <label for="image-kimi" class="custom-file-btn">选择文件</label><br>
+            <button id="btn-kimi">生成描述</button>
+            <div id="loading-kimi" class="loading">🔍 正在分析，请稍候...</div>
+            <div id="result-kimi" class="description-box"></div>
+        </div>
+    </div>
+
+    <!-- 原有逻辑脚本 -->
+    <script src="script.js"></script>
+
+    <!-- 粒子特效库 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
+    <script src="particles-config.js"></script>
+</body>
+
+</html>
